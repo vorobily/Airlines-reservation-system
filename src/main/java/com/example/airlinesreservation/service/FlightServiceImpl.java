@@ -1,4 +1,4 @@
-package com.bookmyflight.service;
+package com.example.airlinesreservation.service;
 
 import java.time.LocalDate;
 import java.util.Collection;
@@ -9,9 +9,9 @@ import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import com.bookmyflight.entity.Flight;
-import com.bookmyflight.exception.FlightException;
-import com.bookmyflight.repo.FlightRepository;
+import com.example.airlinesreservation.entity.Flight;
+import com.example.airlinesreservation.exception.FlightException;
+import com.example.airlinesreservation.repo.FlightRepository;
 
 /**
  * 

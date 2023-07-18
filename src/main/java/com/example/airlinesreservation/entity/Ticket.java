@@ -1,4 +1,4 @@
-package com.bookmyflight.entity;
+package com.example.airlinesreservation.entity;
 
 import java.time.LocalDate;
 

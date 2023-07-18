@@ -1,4 +1,4 @@
-package com.bookmyflight.rest;
+package com.example.airlinesreservation.rest;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -15,15 +15,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.bookmyflight.bean.ListPassenger;
-import com.bookmyflight.entity.Booking;
-import com.bookmyflight.entity.Flight;
-import com.bookmyflight.entity.Passenger;
-import com.bookmyflight.entity.Ticket;
-import com.bookmyflight.entity.User;
-import com.bookmyflight.exception.FlightException;
-import com.bookmyflight.service.BookingService;
-import com.bookmyflight.service.FlightService;
+import com.example.airlinesreservation.bean.ListPassenger;
+import com.example.airlinesreservation.entity.Booking;
+import com.example.airlinesreservation.entity.Flight;
+import com.example.airlinesreservation.entity.Passenger;
+import com.example.airlinesreservation.entity.Ticket;
+import com.example.airlinesreservation.entity.User;
+import com.example.airlinesreservation.exception.FlightException;
+import com.example.airlinesreservation.service.BookingService;
+import com.example.airlinesreservation.service.FlightService;
 
 
 

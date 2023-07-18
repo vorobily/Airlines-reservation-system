@@ -1,4 +1,4 @@
-package com.bookmyflight.service;
+package com.example.airlinesreservation.service;
 
 import java.util.Base64;
 import java.util.Base64.Encoder;
@@ -8,10 +8,10 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.bookmyflight.bean.Login;
-import com.bookmyflight.entity.User;
-import com.bookmyflight.exception.UserException;
-import com.bookmyflight.repo.UserRepository;
+import com.example.airlinesreservation.login.Login;
+import com.example.airlinesreservation.entity.User;
+import com.example.airlinesreservation.exception.UserException;
+import com.example.airlinesreservation.repo.UserRepository;
 
 /**
  * @author dhananjay

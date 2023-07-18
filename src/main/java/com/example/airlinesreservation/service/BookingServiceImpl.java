@@ -1,4 +1,4 @@
-package com.bookmyflight.service;
+package com.example.airlinesreservation.service;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -6,14 +6,14 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.bookmyflight.entity.Booking;
-import com.bookmyflight.entity.Passenger;
-import com.bookmyflight.entity.Ticket;
-import com.bookmyflight.entity.User;
-import com.bookmyflight.repo.BookingRepository;
-import com.bookmyflight.repo.PassengerRepository;
-import com.bookmyflight.repo.TicketRepository;
-import com.bookmyflight.repo.UserRepository;
+import com.example.airlinesreservation.entity.Booking;
+import com.example.airlinesreservation.entity.Passenger;
+import com.example.airlinesreservation.entity.Ticket;
+import com.example.airlinesreservation.entity.User;
+import com.example.airlinesreservation.repo.BookingRepository;
+import com.example.airlinesreservation.repo.PassengerRepository;
+import com.example.airlinesreservation.repo.TicketRepository;
+import com.example.airlinesreservation.repo.UserRepository;
 
 
 

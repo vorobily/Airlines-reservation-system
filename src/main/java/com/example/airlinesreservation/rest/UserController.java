@@ -1,4 +1,4 @@
-package com.bookmyflight.rest;
+package com.example.airlinesreservation.rest;
 
 import java.util.Base64;
 import java.util.Base64.Decoder;
@@ -16,10 +16,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.bookmyflight.bean.Login;
-import com.bookmyflight.entity.User;
-import com.bookmyflight.exception.UserException;
-import com.bookmyflight.service.UserService;
+import com.example.airlinesreservation.login.Login;
+import com.example.airlinesreservation.entity.User;
+import com.example.airlinesreservation.exception.UserException;
+import com.example.airlinesreservation.service.UserService;
 
 
 @CrossOrigin()

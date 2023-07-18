@@ -1,8 +1,8 @@
-package com.bookmyflight.bean;
+package com.example.airlinesreservation.bean;
 
 import java.util.List;
 
-import com.bookmyflight.entity.Passenger;
+import com.example.airlinesreservation.entity.Passenger;
 
 
 

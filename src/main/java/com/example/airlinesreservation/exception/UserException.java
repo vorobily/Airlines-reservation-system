@@ -1,4 +1,4 @@
-package com.bookmyflight.exception;
+package com.example.airlinesreservation.exception;
 
 public class UserException extends Exception {
 

@@ -1,10 +1,10 @@
-package com.bookmyflight.service;
+package com.example.airlinesreservation.service;
 
 import java.util.Collection;
 
-import com.bookmyflight.bean.Login;
-import com.bookmyflight.entity.User;
-import com.bookmyflight.exception.UserException;
+import com.example.airlinesreservation.login.Login;
+import com.example.airlinesreservation.entity.User;
+import com.example.airlinesreservation.exception.UserException;
 
 public interface UserService {
 	

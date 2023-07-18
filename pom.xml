@@ -45,6 +45,12 @@
 			<artifactId>spring-security-test</artifactId>
 			<scope>test</scope>
 		</dependency>
+		<dependency>
+			<groupId>javax</groupId>
+			<artifactId>javaee-api</artifactId>
+			<version>8.0</version> <!-- Use the appropriate version here -->
+			<scope>provided</scope>
+		</dependency>
 	</dependencies>
 
 	<build>

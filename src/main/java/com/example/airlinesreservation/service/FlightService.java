@@ -1,10 +1,10 @@
-package com.bookmyflight.service;
+package com.example.airlinesreservation.service;
 
 import java.time.LocalDate;
 import java.util.Collection;
 
-import com.bookmyflight.entity.Flight;
-import com.bookmyflight.exception.FlightException;
+import com.example.airlinesreservation.entity.Flight;
+import com.example.airlinesreservation.exception.FlightException;
 
 public interface FlightService {
 	

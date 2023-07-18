@@ -1,10 +1,10 @@
-package com.bookmyflight.service;
+package com.example.airlinesreservation.service;
 
 import java.util.List;
 
-import com.bookmyflight.entity.Booking;
-import com.bookmyflight.entity.Passenger;
-import com.bookmyflight.entity.Ticket;
+import com.example.airlinesreservation.entity.Booking;
+import com.example.airlinesreservation.entity.Passenger;
+import com.example.airlinesreservation.entity.Ticket;
 
 public interface BookingService {
 	
