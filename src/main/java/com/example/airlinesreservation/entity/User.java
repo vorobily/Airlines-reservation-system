@@ -19,11 +19,10 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name="user")
-@SequenceGenerator(name = "user_seq",sequenceName = "user_seq",initialValue = 1)
 public class User {
 	
 	@Id
-	@GeneratedValue(generator = "user_seq",strategy=GenerationType.SEQUENCE)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "user_id")
 	private int userId;
 	

@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.ui.Model;
 
 import com.example.airlinesreservation.login.Login;
 import com.example.airlinesreservation.entity.User;
@@ -28,8 +29,12 @@ public class UserController {
 	
 	@Autowired
 	private UserService userservice;
-	
-
+	@GetMapping("/register")
+	public String showRegistrationPage(Model model) {
+		// Create a new User object and add it to the model for the form binding
+		model.addAttribute("userForm", new User());
+		return "register.html"; // Return the name of the Thymeleaf template (register.html)
+	}
 	//Post request on user body for adding user in the database
 	@PostMapping(value = "/createuser",consumes = "application/json")
 	public String createUser(@RequestBody User user) {

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Registration Page</title>
+  <!-- Include CSS styles and other dependencies -->
+  <!-- ... -->
+</head>
+<body>
+<div class="container">
+  <h1>Registration Page</h1>
+  <form th:object="${userForm}" th:method="POST">
+    <div>
+      <label for="username">Username:</label>
+      <input type="text" id="username" th:field="*{username}" required>
+    </div>
+    <div>
+      <label for="fname">Full Name:</label>
+      <input type="text" id="fname" th:field="*{fname}" required>
+    </div>
+    <div>
+      <label for="email">Email:</label>
+      <input type="email" id="email" th:field="*{email}" required>
+    </div>
+    <div>
+      <label for="phone">Phone Number:</label>
+      <input type="text" id="phone" th:field="*{phone}" required>
+    </div>
+    <div>
+      <label for="password">Password:</label>
+      <input type="password" id="password" th:field="*{password}" required>
+    </div>
+    <!-- Add more fields as needed -->
+
+    <div>
+      <button type="submit">Register</button>
+    </div>
+  </form>
+</div>
+</body>
+</html>
+

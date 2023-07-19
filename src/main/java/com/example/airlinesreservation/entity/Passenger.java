@@ -15,11 +15,10 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 
 @Entity
 @Table(name = "passenger")
-@SequenceGenerator(name = "passenger_seq",sequenceName = "passneger_seq",initialValue = 4001)
 public class Passenger {
 
 	@Id
-	@GeneratedValue(generator = "passenegr_seq",strategy=GenerationType.SEQUENCE)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int pid;
 	@Column(name = "pass_name")
 	private String pname;

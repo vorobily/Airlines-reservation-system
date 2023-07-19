@@ -10,6 +10,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
+import javax.persistence.Table;
 import javax.persistence.SequenceGenerator;
 
 /**
@@ -19,11 +20,11 @@ import javax.persistence.SequenceGenerator;
  *
  */
 @Entity
-@SequenceGenerator(name = "ticket_seq",sequenceName = "ticket_seq",initialValue = 5001)
+@Table(name = "ticket")
 public class Ticket {
 	
 	@Id
-	@GeneratedValue(generator = "ticket_seq",strategy=GenerationType.SEQUENCE)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "ticket_number")
 	private int ticketNumber;
 	
