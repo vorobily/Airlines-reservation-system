@@ -13,13 +13,6 @@ import com.example.airlinesreservation.entity.User;
 import com.example.airlinesreservation.exception.UserException;
 import com.example.airlinesreservation.repo.UserRepository;
 
-/**
- * @author dhananjay
- * 
- * UserServiceImpl will perform operations:
- * Like creating User, fetching the user by user id and validate user .
- */
-
 @Service
 public class UserServiceImpl implements UserService {
 
@@ -46,24 +39,23 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public User fetchUserById(int user_id) throws UserException {
-		
-		List<User> users=(List)fetchAllUsers();
-		User user=null;
-		for(User u:users) {
-			if(u.getUserId()==user_id) {
-				user=u;
+
+		List<User> users = (List) fetchAllUsers();
+		User user = null;
+		for (User u : users) {
+			if (u.getUserId() == user_id) {
+				user = u;
 			}
 		}
-		if(user!=null) {
+		if (user != null) {
 			return userrepo.findById(user_id).get();
-		}else {
-			throw new UserException("User not found with id"+user_id);
+		} else {
+			throw new UserException("User not found with id" + user_id);
 		}
-		
-		
+
+
 	}
 
-	// this method authenticates user based on Login bean
 	@Override
 	public User validate(Login login) {
 		// TODO Auto-generated method stub

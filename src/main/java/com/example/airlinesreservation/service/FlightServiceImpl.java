@@ -13,12 +13,6 @@ import com.example.airlinesreservation.entity.Flight;
 import com.example.airlinesreservation.exception.FlightException;
 import com.example.airlinesreservation.repo.FlightRepository;
 
-/**
- * 
- * 
- * 
- * Description: CRUD operations on Flight 
- */
 
 @Repository
 public class FlightServiceImpl implements FlightService {
@@ -28,7 +22,6 @@ public class FlightServiceImpl implements FlightService {
 	@Transactional
 	public int addFlight(Flight flight) throws FlightException {
 		// TODO Auto-generated method stub
-		//Flight temp=fetchFlight(flight.getSource(), flight.getDestination(), flight.getTravelDate());
 		List<Flight> flights=(List)fetchAll();
 		Flight flight_temp=null;
 		for(Flight f:flights) {
@@ -38,7 +31,6 @@ public class FlightServiceImpl implements FlightService {
 				flight_temp=f;
 			}
 		}
-		//System.out.println(temp);
 		if(flight_temp==null) {
 			frepo.save(flight);
 			return flight.getFlightNumber();
@@ -72,20 +64,6 @@ public class FlightServiceImpl implements FlightService {
 		}
 		
 	}
-	
-	@Override
-	public Collection<Flight> fetchFlightsOnCondition(String source, String destination, LocalDate scheduleDate)
-			throws FlightException {
-		List<Flight> flights;
-		flights = frepo.findByCondition(source, destination, scheduleDate);
-		if(flights!=null) {
-			return flights;
-		}else {
-			throw new FlightException("Flights not found with provided details");
-		}
-		
-	}
-
 
 	@Transactional  
 	public int updateFlight(Flight flight) throws FlightException {

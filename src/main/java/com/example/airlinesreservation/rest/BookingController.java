@@ -3,9 +3,12 @@ package com.example.airlinesreservation.rest;
 import java.time.LocalDate;
 import java.util.List;
 
+import com.example.airlinesreservation.entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -14,13 +17,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.stereotype.Controller;
 
-import com.example.airlinesreservation.bean.ListPassenger;
 import com.example.airlinesreservation.entity.Booking;
 import com.example.airlinesreservation.entity.Flight;
-import com.example.airlinesreservation.entity.Passenger;
-import com.example.airlinesreservation.entity.Ticket;
-import com.example.airlinesreservation.entity.User;
 import com.example.airlinesreservation.exception.FlightException;
 import com.example.airlinesreservation.service.BookingService;
 import com.example.airlinesreservation.service.FlightService;
@@ -28,8 +28,7 @@ import com.example.airlinesreservation.service.FlightService;
 
 
 @CrossOrigin()
-@RestController
-@RequestMapping("/book")
+@Controller
 public class BookingController {
 
 	@Autowired
@@ -37,72 +36,26 @@ public class BookingController {
 	
 	@Autowired
 	private FlightService flightservice;
-	
-	//Post requset for add booking
-	@PostMapping(value = "/booking", consumes = "application/json")
-	public String addBooking(@RequestBody Booking booking, @RequestParam int fid, String source, String destination, String date) throws FlightException {
-		
-//		Flight flight = flightservice.fetchFlight(source, destination, LocalDate.parse(date));
-		
-		Flight flight = flightservice.fetchById(fid);
-		if(flight.getAvailableSeats()<=0) {
-			return "Seats are not available";
-		}else if(booking.getNumberOfSeatsToBook()>flight.getAvailableSeats()) {
-			return "Only "+flight.getAvailableSeats()+" are Available";
-		}else {
-			flight.setAvailableSeats(flight.getAvailableSeats()-booking.getNumberOfSeatsToBook());
+
+	@PostMapping("/booking")
+	public ResponseEntity<?> addBooking(@RequestBody Booking booking,
+										@RequestParam int flightId,
+										@RequestParam String source,
+										@RequestParam String destination,
+										@RequestParam String date) throws FlightException {
+
+		Flight flight = flightservice.fetchById(flightId);
+		if (flight.getAvailableSeats() <= 0) {
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Seats are not available");
+		} else if (booking.getNumberOfSeatsToBook() > flight.getAvailableSeats()) {
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Only " + flight.getAvailableSeats() + " seats are available");
+		} else {
+			flight.setAvailableSeats(flight.getAvailableSeats() - booking.getNumberOfSeatsToBook());
 			flightservice.updateFlight(flight);
 			booking.setFlight(flight);
 			booking.setBookingDate(LocalDate.now());
 			int bid = bookservice.addBooking(booking);
-			return "" + bid;
+			return ResponseEntity.ok(bid);
 		}
 	}
-	
-	//Post request for adding passengers for booking id
-	@PostMapping(value = "/passenger/{bid}",  consumes = "application/json")
-	public String addPassengers(@RequestBody ListPassenger pass1, @PathVariable int bid) {
-//		int pid = bookservice.addPassenger(passenger, bid);
-		String s1 = "";
-		Booking booking=bookservice.getBookingById(bid);
-		for (int i = 0; i<booking.getNumberOfSeatsToBook(); i++) {
-			s1 += " : "+bookservice.addPassenger(pass1.getPass1().get(i), bid) ; 
-		}
-		
-		return "Passengers added with id's " + s1 ;
-	}
-	
-
-	//Post request for generating ticket for user id and booking id
-	@PostMapping(value = "/ticket/{userId}/{bookid}/{pay}", consumes = "application/json",produces = "application/json")
-	public ResponseEntity<?> createBookingTicket(@RequestBody Ticket ticket, @PathVariable int userId, @PathVariable int bookid, @PathVariable int pay ) {
-		
-//		int bid = bookservice.addBooking(booking);
-		Booking booking=bookservice.getBookingById(bookid);
-		booking.setPayStatus(pay);
-		bookservice.updateBooking(booking);
-		
-		int pay_status = booking.getPayStatus();
-		double total_pay=booking.getFlight().getPrice()*booking.getNumberOfSeatsToBook();
-		if(pay_status==1) {
-			LocalDate date = LocalDate.now();
-			ticket.setBooking_date(date);
-			ticket.setTotal_pay(total_pay); 
-			Ticket ticket1 = bookservice.generateTicket(ticket, userId, bookid);
-			//return "Ticket generated for bookingid : " + bookid + "Ticket generated with id : " + tid + "Ticket generated for userid :" +userId ;
-			return new ResponseEntity<Ticket>(ticket1, HttpStatus.OK);
-		}else {
-			return new ResponseEntity<String>("Payment failed, please book ticket again.",HttpStatus.NOT_FOUND);
-		}
-	}
-	
-	//Get request for fetching tickets for user
-	@GetMapping(value="/getTickets/{uid}" ,produces = "application/json")
-	public List<Ticket> getAllTickets(@PathVariable int uid) {
-		bookservice.getTicket(uid);
-		return bookservice.getTicket(uid);
-		
-	}
-	
-
 }

@@ -1,9 +1,43 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>My Web Application</title>
+    <title>Airlines Reservation</title>
+    <link rel="stylesheet" type="text/css" href="/index.css" />
 </head>
 <body>
-<h1>Hello, this is my web application!</h1>
+<div th:if="${session.user}" style="text-align: right; margin: 10px;">
+    <h1>Welcome, <span th:text="${session.user.username}"></span></h1>
+    <form action="/logout" method="post">
+        <button type="submit">Logout</button>
+    </form>
+</div>
+<div th:unless="${session.user}" style="text-align: right; margin: 10px;">
+    <h1>Hello, this is my web application!</h1>
+    <a th:href="@{/login}">Login</a>
+    <a th:href="@{/register}">Register</a>
+</div>
+
+<!-- Display available flights -->
+<h1>Flight Information</h1>
+<div th:each="flight : ${flights}">
+    <div class="flight-box">
+        <p>Flight Number: <span th:text="${flight.flightNumber}"></span></p>
+        <p>Source: <span th:text="${flight.source}"></span></p>
+        <p>Destination: <span th:text="${flight.destination}"></span></p>
+        <p>Date: <span th:text="${flight.travelDate}"></span></p>
+        <p>Departure Time: <span th:text="${flight.departureTime}"></span></p>
+        <p>Arrival Time: <span th:text="${flight.arrivalTime}"></span></p>
+        <p>Price: <span th:text="${flight.price}"></span></p>
+        <p>Available Seats: <span th:text="${flight.availableSeats}"></span></p>
+    </div>
+
+    <div th:if="${session.user}">
+        <form action="/book" method="post">
+            <a th:href="@{/booking(flightNumber=${flight.flightNumber}, source=${flight.source}, destination=${flight.destination}, date=${flight.travelDate})}">Book</a>
+        </form>
+    </div>
+</div>
+
 </body>
 </html>
+

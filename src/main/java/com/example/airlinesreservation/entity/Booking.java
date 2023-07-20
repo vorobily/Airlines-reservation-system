@@ -34,8 +34,7 @@ public class Booking {
 	
 	@Column(name="seats")
 	private int numberOfSeatsToBook;
-	
-	private int payStatus;
+
 	private LocalDate bookingDate;
 	
 	/* One booking remembers one flight
@@ -43,12 +42,6 @@ public class Booking {
 	@OneToOne
 	@JoinColumn(name = "flight_number")		
 	private Flight flight;
-	
-	/*One booking remembers multiple passengers
-	Parent of Passenger entity*/
-	@JsonManagedReference
-	@OneToMany(mappedBy = "booking",fetch = FetchType.LAZY,cascade = CascadeType.ALL)
-	private List<Passenger> passengers = new ArrayList<Passenger>();
 	
 	public int getBookingId() {
 		return bookingId;
@@ -63,23 +56,11 @@ public class Booking {
 	public void setNumberOfSeatsToBook(int numberOfSeatsToBook) {
 		this.numberOfSeatsToBook = numberOfSeatsToBook;
 	}
-	public int getPayStatus() {
-		return payStatus;
-	}
-	public void setPayStatus(int payStatus) {
-		this.payStatus = payStatus;
-	}
 	public Flight getFlight() {
 		return flight;
 	}
 	public void setFlight(Flight flight) {
 		this.flight = flight;
-	}
-	public List<Passenger> getPassengers() {
-		return passengers;
-	}
-	public void setPassengers(List<Passenger> passengers) {
-		this.passengers = passengers;
 	}
 	public LocalDate getBookingDate() {
 		return bookingDate;

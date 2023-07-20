@@ -9,13 +9,10 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
+
 
 import com.example.airlinesreservation.login.Login;
 import com.example.airlinesreservation.entity.User;
@@ -24,75 +21,62 @@ import com.example.airlinesreservation.service.UserService;
 
 
 @CrossOrigin()
-@RestController
+@Controller
 public class UserController {
 	
 	@Autowired
 	private UserService userservice;
+
 	@GetMapping("/register")
 	public String showRegistrationPage(Model model) {
-		// Create a new User object and add it to the model for the form binding
 		model.addAttribute("userForm", new User());
-		return "register.html"; // Return the name of the Thymeleaf template (register.html)
+		return "register.html";
 	}
-	//Post request on user body for adding user in the database
-	@PostMapping(value = "/createuser",consumes = "application/json")
-	public String createUser(@RequestBody User user) {
+
+	@PostMapping("/register")
+	public String createUser(@ModelAttribute("userForm") User user) {
 	
 		Encoder encoder=Base64.getEncoder();
 		String encrypt=encoder.encodeToString(user.getPassword().getBytes());
 		user.setPassword(encrypt);
 		int uid;
 		try {
+			System.out.println("Received user data: " + user);
 			uid = userservice.createUser(user);
-			return "User added successfully with user id" + uid; 
+			System.out.println("User added successfully with user id: " + uid);
+			return "redirect:/";
 		} catch (UserException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-			return ""+e.getMessage();
+			return "Error occurred: " + e.getMessage();
 		}
 		
 	}
-	
-	//Get request to fetch user based on user id
-	@GetMapping(value="/get/{uid}",produces="application/json")
-	public ResponseEntity<?> getUser(@PathVariable int uid)  {
-		
-		User u=null;
-		 try {
-			u=userservice.fetchUserById(uid);
-			Decoder decoder=Base64.getDecoder();
-			String password=new String(decoder.decode(u.getPassword()));
-			System.out.println("Password is"+password);
-			return new ResponseEntity<User>(u,HttpStatus.OK);
-		} catch (UserException e) {
-			
-			e.printStackTrace();
-			return new ResponseEntity<String>(e.getMessage(),HttpStatus.NOT_FOUND);
-		}
 
+	@GetMapping("/login")
+	public String login() {
+		return "login.html";
 	}
-	
-	//Get request for authenticating user
-	@GetMapping(value="/auth/{username}/{password}" ,produces="application/json")
-	public ResponseEntity<?> authenticate(@PathVariable String username,@PathVariable String password) {
-		Login login=new Login();
+	@PostMapping("/login")
+	public String authenticate(@RequestParam String username, @RequestParam String password, HttpSession session) {
+		Login login = new Login();
 		login.setUsername(username);
 		login.setPassword(password);
-		User user=userservice.validate(login);
-		if(user!=null) {
+
+		User user = userservice.validate(login);
+		if (user != null) {
 			user.setPassword(password);
-			return new ResponseEntity<User>(user, HttpStatus.OK);
-		}else {
-			return new ResponseEntity<String>("Invalid username or password",HttpStatus.NOT_FOUND);
+			session.setAttribute("user", user);
+			return "redirect:/";
+		} else {
+			return "login";
 		}
 	}
-	
-	//Get request for logging out user
-	@GetMapping("/logout")
+
+	@RequestMapping(value = "/logout", method = {RequestMethod.GET, RequestMethod.POST})
 	public String logout(HttpSession session) {
-		session.invalidate();	//destroy the session
-		return "logged out successfully";
+		session.invalidate();
+		return "redirect:/";
 	}
 	
 }

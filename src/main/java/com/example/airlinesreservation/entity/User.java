@@ -18,39 +18,40 @@ import javax.persistence.Table;
 
 
 @Entity
-@Table(name="user")
+@Table(name= "users")
 public class User {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "user_id")
 	private int userId;
-	
+
+	@Column(name = "username")
 	private String username;
 	
 	@Column(name="user_fullname")
 	private String fname;
-	
+	@Column(name = "email")
 	private String email;
-	
+	@Column(name = "phone")
 	private String phone;
-	
-	private int isadmin;
-	
+	@Column(name = "isAdmin")
+	private boolean isAdmin;
+	@Column(name = "password")
 	private String password;
 	
 	
 	public User() {
 		
 	}
-	public User(int uid, String username, String fname, String email, String phone, int isadmin, String password) {
+	public User(int uid, String username, String fname, String email, String phone, boolean isAdmin, String password) {
 		super();
 		this.userId=uid;  
 		this.username = username;
 		this.fname = fname;
 		this.email = email;
 		this.phone = phone;
-		this.isadmin = isadmin;
+		this.isAdmin = isAdmin;
 		this.password= password;
 	}
 	
@@ -85,11 +86,11 @@ public class User {
 	public void setPhone(String phone) {
 		this.phone = phone;
 	}
-	public int getIsadmin() {
-		return isadmin;
+	public boolean getIsAdmin() {
+		return isAdmin;
 	}
-	public void setIsadmin(int isadmin) {
-		this.isadmin = isadmin;
+	public void setIsAdmin(boolean isAdmin) {
+		this.isAdmin = isAdmin;
 	}
 	
 	public String getPassword() {
