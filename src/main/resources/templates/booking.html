@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Booking</title>
+</head>
+<body>
+<h1>Booking</h1>
+<form action="/booking" method="post">
+    <p>Flight Number: <span th:text="${booking.flight.flightNumber}"></span></p>
+    <p>Source: <span th:text="${booking.flight.source}"></span></p>
+    <p>Destination: <span th:text="${booking.flight.destination}"></span></p>
+    <p>Date: <span th:text="${booking.flight.travelDate}"></span></p>
+
+    <input type="hidden" name="flightId" th:value="${booking.flight.flightNumber}" />
+    <input type="hidden" th:field="*{booking.flight.source}" />
+    <input type="hidden" th:field="*{booking.flight.destination}" />
+    <input type="hidden" th:field="*{booking.flight.travelDate}" />
+
+    <input type="number" th:field="*{booking.numberOfSeatsToBook}" />
+
+    <button type="submit">Book</button>
+</form>
+</body>
+</html>

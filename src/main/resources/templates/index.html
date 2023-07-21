@@ -32,8 +32,8 @@
     </div>
 
     <div th:if="${session.user}">
-        <form action="/book" method="post">
-            <a th:href="@{/booking(flightNumber=${flight.flightNumber}, source=${flight.source}, destination=${flight.destination}, date=${flight.travelDate})}">Book</a>
+        <form action="/booking" method="post">
+            <a th:href="@{/booking(flightId=${flight.flightNumber}, source=${flight.source}, destination=${flight.destination}, date=${flight.travelDate})}">Book</a>
         </form>
     </div>
 </div>
