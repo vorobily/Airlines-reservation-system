@@ -41,7 +41,41 @@ public class FlightController {
 
 		System.out.println("Number of flights fetched: " + flights.size());
 
-		return "index"; // Return the view name "index.html"
+		return "index.html"; // Return the view name "index.html"
+	}
+
+	@PostMapping(value = "/add")
+	public String addFlight(@RequestBody Flight flight, HttpSession session) {
+		try {
+			int id=fservice.addFlight(flight);
+			return "Flight added with flight number "+id;
+
+		} catch (FlightException e) {
+			e.printStackTrace();
+			return ""+e.getMessage();
+		}
+
+	}
+
+	@PostMapping(value="/remove/{fid}")
+	public String removeFlight(@PathVariable int fid, HttpSession session) {
+
+		fservice.removeFlight(fid);
+		return "redirect:/";
+	}
+
+	@PutMapping(value="/update")
+	public String updateFlight(@RequestBody Flight flight, HttpSession session) {
+		try {
+
+			int id=fservice.updateFlight(flight);
+			return "Flight updated with id "+id;
+
+		} catch (FlightException e) {
+
+			e.printStackTrace();
+			return ""+e.getMessage();
+		}
 	}
 
 }
