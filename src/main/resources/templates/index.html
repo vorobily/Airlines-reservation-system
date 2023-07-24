@@ -5,13 +5,13 @@
     <link rel="stylesheet" type="text/css" href="/index.css" />
 </head>
 <body>
-<div th:if="${session?.user}" style="text-align: right; margin: 10px;">
+<div th:if="${session.user}" style="text-align: right; margin: 10px;">
     <h1>Welcome, <span th:text="${session.user.username}"></span></h1>
     <form action="/logout" method="post">
         <button type="submit">Logout</button>
     </form>
 </div>
-<div th:unless="${session?.user}" style="text-align: right; margin: 10px;">
+<div th:unless="${session.user}" style="text-align: right; margin: 10px;">
     <h1>Hello, this is my web application!</h1>
     <a th:href="@{/login}">Login</a>
     <a th:href="@{/register}">Register</a>
@@ -31,31 +31,32 @@
         <p>Available Seats: <span th:text="${flight.availableSeats}"></span></p>
     </div>
 
-
-    <div th:if="${session.user?.isAdmin}">
-        <!-- Show admin-specific elements here -->
-        <form action="@{/update(flightId=${flight.flightNumber})}" method="get">
-            <button type="submit">Edit</button>
-        </form>
-        <form action="@{/remove(flightId=${flight.flightNumber})}" method="post">
-            <button type="submit">Remove</button>
-        </form>
-    </div>
-
     <div th:if="${session.user}">
+        <div th:if="${session.user.isAdmin}">
+            <form th:action="@{/update/{flightId}(flightId=${flight.flightNumber})}" method="get">
+                <button type="submit">Edit</button>
+            </form>
+            <form th:action="@{'/remove/' + ${flight.flightNumber}}" method="post">
+                <button type="submit">Remove</button>
+            </form>
+        </div>
+
         <div th:if="${!session.user.isAdmin}">
         <!-- Show non-admin-specific elements here -->
         <form action="/booking" method="post">
             <a th:href="@{/booking(flightId=${flight.flightNumber}, source=${flight.source}, destination=${flight.destination}, date=${flight.travelDate})}">Book</a>
         </form>
-        </div>
     </div>
+    </div>
+
 </div>
 
-<div th:if="${session.user?.isAdmin}" style="text-align: right; margin: 10px;">
-    <form action="/add" method="post">
-        <button type="submit">Add Flight</button>
-    </form>
+<div th:if="${session.user}" style="text-align: right; margin: 10px;">
+    <div th:if="${session.user.isAdmin}">
+        <form action="/add" method="get">
+            <button type="submit">Add Flight</button>
+        </form>
+    </div>
 </div>
 
 </body>

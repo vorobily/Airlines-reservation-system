@@ -1,10 +1,20 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:util="urn:java:org.thymeleaf.extras.java8time">
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Update Flight Information</title>
 </head>
 <body>
-
+<h1>Update Flight Information</h1>
+<form th:action="@{/update}" method="post" th:object="${flight}">
+    <input type="hidden" th:name="flightId" th:value="${flight.flightNumber}" />
+    <p>Source: <input type="text" th:field="*{source}" /></p>
+    <p>Destination: <input type="text" th:field="*{destination}" /></p>
+    <p>Date: <input type="date" th:field="*{travelDate}" /></p>
+    <p>Departure Time: <input type="time" th:field="*{departureTime}" /></p>
+    <p>Arrival Time: <input type="time" th:field="*{arrivalTime}" /></p>
+    <p>Price: <input type="text" th:field="*{price}" /></p>
+    <p>Available Seats: <input type="number" th:field="*{availableSeats}" /></p>
+    <button type="submit">Update</button>
+</form>
 </body>
 </html>
