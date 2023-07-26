@@ -1,5 +1,7 @@
 package com.example.airlinesreservation.entity;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -23,10 +25,13 @@ public class Flight {
 	private String source;
 	private String destination;
 	@Column(name="travel_date")
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private LocalDate travelDate;
 	@Column(name="arrival_time")
+	@DateTimeFormat(pattern = "HH:mm")
 	private LocalTime arrivalTime;
 	@Column(name="departure_time")
+	@DateTimeFormat(pattern = "HH:mm")
 	private LocalTime departureTime;
 	private double price;
 	private int availableSeats;

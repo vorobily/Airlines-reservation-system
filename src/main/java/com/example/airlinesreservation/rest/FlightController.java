@@ -5,11 +5,15 @@ import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Collection;
 import java.util.List;
-
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.List;
+import java.util.stream.Collectors;
 import javax.servlet.http.HttpSession;
 
 import javax.servlet.http.HttpServletRequest;
 import com.example.airlinesreservation.exception.UserException;
+import org.apache.logging.log4j.util.PropertySource;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,7 +44,10 @@ public class FlightController {
 
 	@GetMapping("/")
 	public String displayFlights(Model model) {
-		Collection<Flight> flights = fservice.fetchAll();
+		List<Flight> flights = new ArrayList<>(fservice.fetchAll());
+
+		// Sort the flights by flightNumber using a comparator
+		flights.sort(Comparator.comparingInt(Flight::getFlightNumber));
 
 		model.addAttribute("flights", flights);
 
@@ -73,7 +80,6 @@ public class FlightController {
 		fservice.removeFlight(fid);
 		return "redirect:/";
 	}
-
 	@GetMapping("/update/{flightId}")
 	public String showUpdateFlightPage(@PathVariable int flightId, Model model) {
 		Flight flight = fservice.fetchById(flightId);
@@ -81,16 +87,17 @@ public class FlightController {
 		return "update.html";
 	}
 
-	@PostMapping(value="/update")
+
+	@PostMapping(value = "/update/{flightId}")
 	public String updateFlight(@ModelAttribute("flight") Flight flight) {
 		try {
 			int id = fservice.updateFlight(flight);
 			return "redirect:/";
-
 		} catch (FlightException e) {
 			e.printStackTrace();
 			return "" + e.getMessage();
 		}
 	}
+
 
 }

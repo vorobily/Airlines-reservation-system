@@ -19,7 +19,7 @@
 
 <!-- Display available flights -->
 <h1>Flight Information</h1>
-<div th:each="flight : ${flights}">
+<div th:each="flight : ${flights}" class="flight-box">
     <div class="flight-box">
         <p>Flight Number: <span th:text="${flight.flightNumber}"></span></p>
         <p>Source: <span th:text="${flight.source}"></span></p>
@@ -29,6 +29,10 @@
         <p>Arrival Time: <span th:text="${flight.arrivalTime}"></span></p>
         <p>Price: <span th:text="${flight.price}"></span></p>
         <p>Available Seats: <span th:text="${flight.availableSeats}"></span></p>
+    </div>
+
+    <div th:unless="${flights}">
+        <p>No flights available.</p>
     </div>
 
     <div th:if="${session.user}">

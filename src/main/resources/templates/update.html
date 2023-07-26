@@ -1,20 +1,43 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" xmlns:util="urn:java:org.thymeleaf.extras.java8time">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Update Flight Information</title>
 </head>
 <body>
 <h1>Update Flight Information</h1>
-<form th:action="@{/update}" method="post" th:object="${flight}">
-    <input type="hidden" th:name="flightId" th:value="${flight.flightNumber}" />
-    <p>Source: <input type="text" th:field="*{source}" /></p>
-    <p>Destination: <input type="text" th:field="*{destination}" /></p>
-    <p>Date: <input type="date" th:field="*{travelDate}" /></p>
-    <p>Departure Time: <input type="time" th:field="*{departureTime}" /></p>
-    <p>Arrival Time: <input type="time" th:field="*{arrivalTime}" /></p>
-    <p>Price: <input type="text" th:field="*{price}" /></p>
-    <p>Available Seats: <input type="number" th:field="*{availableSeats}" /></p>
-    <button type="submit">Update</button>
+<form method="post" th:action="@{/update/{flightId}(flightId=${flight.flightNumber})}" th:object="${flight}">
+    <input id="flightNumber" required th:field="*{flightNumber}" type="hidden">
+    <div>
+        <label for="source">Departure Airport:</label>
+        <input id="source" required th:field="*{source}" type="text">
+    </div>
+    <div>
+        <label for="destination">Arrival Airport:</label>
+        <input id="destination" required th:field="*{destination}" type="text">
+    </div>
+    <div>
+        <label for="travelDate">Departure Date:</label>
+        <input id="travelDate" required th:field="*{travelDate}" type="date">
+    </div>
+    <div>
+        <label for="departureTime">Departure Time:</label>
+        <input type="time" id="departureTime" th:field="*{departureTime}" required>
+    </div>
+    <div>
+        <label for="arrivalTime">Arrival Time:</label>
+        <input type="time" id="arrivalTime" th:field="*{arrivalTime}" required>
+    </div>
+    <div>
+        <label for="price">Price:</label>
+        <input id="price" required th:field="*{price}" type="number">
+    </div>
+    <div>
+        <label for="availableSeats">Available Seats:</label>
+        <input id="availableSeats" required th:field="*{availableSeats}" type="number">
+    </div>
+    <div>
+        <button type="submit">Update</button>
+    </div>
 </form>
 </body>
 </html>
