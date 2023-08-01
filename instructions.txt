@@ -12,7 +12,7 @@ Pouzite technologie:
 ^Thymeleaf
 
 ************************************************************************************************************
-Spusteni programu:
+Instalovani programu:
 
 IntelliJ IDEA:
 
@@ -21,13 +21,21 @@ IntelliJ IDEA:
 3)Trust Project
 
 ************************************************************************************************************
+Nastaveni databaze v PostgreSQL:
+
+1)Pustit PostgreSQL
+2)Pripojit se k databazi
+3)Create database -> Jmeno databaze (napr. airlines)
+4)Pripojit se k nove vytvorene databazi
+
+************************************************************************************************************
 Nastaveni databaze v IDE:
 
 1)Airlines -> src -> main -> resources -> application.properties
 2)Program pouziva PostgreSQL
-3)spring.datasource.url=jdbc:postgresql://localhost:5432/*** (jmeno vasi databaze za misto ***)
-4)spring.datasource.username=*** (username za misto ***)
-5)spring.datasource.password=*** (password za misto ***)
+3)spring.datasource.url=jdbc:postgresql://localhost:5432/*** (Jmeno vasi databaze za misto ***)
+4)spring.datasource.username=*** (PostgreSQL username za misto ***)
+5)spring.datasource.password=*** (PostgreSQL password za misto ***)
 
 ************************************************************************************************************
 1)Create users (2 moznosti - SQL command a Register v applikace, ale admin pouze v SQL)
@@ -35,7 +43,7 @@ Nastaveni databaze v IDE:
 Query Tool PostgreSQL:
 ***(Jmeno databaze) -> Schemas -> public -> Tables -> users -> Query Tool
 
-SQL command:
+SQL command (priklad):
 
 INSERT INTO users (username, user_fullname, email, phone, is_admin, password)
 VALUES ('admin', 'Administrator', 'admin@example.com', '+123456789', true, 'YWRtaW4='),
@@ -82,3 +90,8 @@ VALUES
 
 ************************************************************************************************************
 
+Spusteni programu:
+
+1) Vedle tlacitka Run v IDE je vyber konfigurace. Vybrat AirlinesApplication
+2) Run
+3) V prohlizeci zadat http://localhost:8080/
