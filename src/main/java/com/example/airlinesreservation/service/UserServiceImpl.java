@@ -1,17 +1,16 @@
 package com.example.airlinesreservation.service;
 
+import com.example.airlinesreservation.entity.User;
+import com.example.airlinesreservation.exception.UserException;
+import com.example.airlinesreservation.login.Login;
+import com.example.airlinesreservation.repo.UserRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 import java.util.Base64;
 import java.util.Base64.Encoder;
 import java.util.Collection;
 import java.util.List;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
-import com.example.airlinesreservation.login.Login;
-import com.example.airlinesreservation.entity.User;
-import com.example.airlinesreservation.exception.UserException;
-import com.example.airlinesreservation.repo.UserRepository;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -52,8 +51,6 @@ public class UserServiceImpl implements UserService {
 		} else {
 			throw new UserException("User not found with id" + user_id);
 		}
-
-
 	}
 
 	@Override

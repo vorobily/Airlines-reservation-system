@@ -1,25 +1,79 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Booking</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <link rel="stylesheet" th:href="@{/main.css}">
+    <link rel="stylesheet" th:href="@{/navbar.css}">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 </head>
+
 <body>
-<h1>Booking</h1>
-<form action="/booking" method="post">
-    <p>Flight Number: <span th:text="${booking.flight.flightNumber}"></span></p>
-    <p>Source: <span th:text="${booking.flight.source}"></span></p>
-    <p>Destination: <span th:text="${booking.flight.destination}"></span></p>
-    <p>Date: <span th:text="${booking.flight.travelDate}"></span></p>
 
-    <input type="hidden" name="flightId" th:value="${booking.flight.flightNumber}" />
-    <input type="hidden" th:field="*{booking.flight.source}" />
-    <input type="hidden" th:field="*{booking.flight.destination}" />
-    <input type="hidden" th:field="*{booking.flight.travelDate}" />
+<div th:replace="navbar :: navbar"></div>
 
-    <input type="number" th:field="*{booking.numberOfSeatsToBook}" />
+<div id="container-booking">
+    <div id="title">
+        Booking
+    </div>
 
-    <button type="submit">Book</button>
-</form>
+    <form method="post" th:action="@{/booking/{flightId}(flightId=${booking.flight.flightNumber})}"
+          th:object="${booking}">
+        <div class="input">
+            <label for="flightNumber">Flight Number:</label>
+            <div class="input-addon">
+                <i class="material-icons">airplanemode_active</i>
+            </div>
+            <input id="flightNumber" readonly required th:value="${booking.flight.flightNumber}" type="text">
+        </div>
+
+        <div class="clearfix"></div>
+
+        <div class="input">
+            <label for="source">Departure Airport:</label>
+            <div class="input-addon">
+                <i class="material-icons">flight_takeoff</i>
+            </div>
+            <input id="source" readonly required th:value="${booking.flight.source}" type="text">
+
+        </div>
+
+        <div class="clearfix"></div>
+
+        <div class="input">
+            <label for="destination">Arrival Airport:</label>
+            <div class="input-addon">
+                <i class="material-icons">flight_land</i>
+            </div>
+            <input id="destination" readonly required th:value="${booking.flight.destination}" type="text">
+        </div>
+
+        <div class="clearfix"></div>
+
+        <div class="input">
+            <label for="travelDate">Departure Date:</label>
+            <div class="input-addon">
+                <i class="material-icons">date_range</i>
+            </div>
+            <input id="travelDate" readonly required th:value="${booking.flight.travelDate}" type="date">
+        </div>
+
+        <div class="clearfix"></div>
+
+        <div class="input">
+            <label for="numberOfSeatsToBook">Number of Seats:</label>
+            <div class="input-addon">
+                <i class="material-icons">airline_seat_recline_normal</i>
+            </div>
+            <input id="numberOfSeatsToBook" min="1" required th:field="${booking.numberOfSeatsToBook}" type="number"/>
+        </div>
+
+        <input type="submit" value="Book"/>
+    </form>
+</div>
+
+<div th:replace="navbar :: footer"></div>
+
 </body>
 </html>

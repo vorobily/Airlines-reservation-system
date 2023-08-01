@@ -2,66 +2,65 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Airlines Reservation</title>
-    <link rel="stylesheet" type="text/css" href="/index.css" />
+    <link href="index.css" rel="stylesheet">
+    <link href="navbar.css" rel="stylesheet">
 </head>
 <body>
-<div th:if="${session.user}" style="text-align: right; margin: 10px;">
-    <h1>Welcome, <span th:text="${session.user.username}"></span></h1>
-    <form action="/logout" method="post">
-        <button type="submit">Logout</button>
-    </form>
-</div>
-<div th:unless="${session.user}" style="text-align: right; margin: 10px;">
-    <h1>Hello, this is my web application!</h1>
-    <a th:href="@{/login}">Login</a>
-    <a th:href="@{/register}">Register</a>
+<div th:replace="navbar :: navbar"></div>
+
+<div class="image-container">
+    <img src="homepage.jpg">
 </div>
 
-<!-- Display available flights -->
-<h1>Flight Information</h1>
-<div th:each="flight : ${flights}" class="flight-box">
-    <div class="flight-box">
-        <p>Flight Number: <span th:text="${flight.flightNumber}"></span></p>
-        <p>Source: <span th:text="${flight.source}"></span></p>
-        <p>Destination: <span th:text="${flight.destination}"></span></p>
-        <p>Date: <span th:text="${flight.travelDate}"></span></p>
-        <p>Departure Time: <span th:text="${flight.departureTime}"></span></p>
-        <p>Arrival Time: <span th:text="${flight.arrivalTime}"></span></p>
-        <p>Price: <span th:text="${flight.price}"></span></p>
-        <p>Available Seats: <span th:text="${flight.availableSeats}"></span></p>
-    </div>
+<h2 class="scheduled-flights-heading">Scheduled Flights</h2>
 
-    <div th:unless="${flights}">
-        <p>No flights available.</p>
-    </div>
-
-    <div th:if="${session.user}">
-        <div th:if="${session.user.isAdmin}">
-            <form th:action="@{/update/{flightId}(flightId=${flight.flightNumber})}" method="get">
-                <button type="submit">Edit</button>
-            </form>
-            <form th:action="@{'/remove/' + ${flight.flightNumber}}" method="post">
-                <button type="submit">Remove</button>
-            </form>
-        </div>
-
-        <div th:if="${!session.user.isAdmin}">
-        <!-- Show non-admin-specific elements here -->
-        <form action="/booking" method="post">
-            <a th:href="@{/booking(flightId=${flight.flightNumber}, source=${flight.source}, destination=${flight.destination}, date=${flight.travelDate})}">Book</a>
-        </form>
-    </div>
-    </div>
-
-</div>
-
-<div th:if="${session.user}" style="text-align: right; margin: 10px;">
+<div class="add-flight-button" th:if="${session.user}">
     <div th:if="${session.user.isAdmin}">
         <form action="/add" method="get">
             <button type="submit">Add Flight</button>
         </form>
     </div>
 </div>
+
+<div class="flight-box-container">
+    <div class="flight-box" th:each="flight : ${flights}">
+        <div class="box-header">
+            <h3>Flight #<span th:text="${flight.flightNumber}"></span></h3>
+        </div>
+        <div class="box-body">
+            <p>Source: <span th:text="${flight.source}"></span></p>
+            <p>Destination: <span th:text="${flight.destination}"></span></p>
+            <p>Date: <span th:text="${flight.travelDate}"></span></p>
+            <p>Departure Time: <span th:text="${flight.departureTime}"></span></p>
+            <p>Arrival Time: <span th:text="${flight.arrivalTime}"></span></p>
+            <p>Price: <span th:text="${flight.price}"></span></p>
+            <p>Available Seats: <span th:text="${flight.availableSeats}"></span></p>
+            <br/>
+            <div th:if="${session.user}">
+                <div class="form-actions" th:if="${session.user.isAdmin}">
+                    <form method="get" th:action="@{/update/{flightId}(flightId=${flight.flightNumber})}">
+                        <button type="submit">Edit</button>
+                    </form>
+                    <form method="post" th:action="@{'/remove/' + ${flight.flightNumber}}">
+                        <button type="submit">Remove</button>
+                    </form>
+                </div>
+
+                <div th:if="${!session.user.isAdmin}">
+                    <form action="/booking" method="post">
+                        <a th:href="@{/booking/{flightId}(flightId=${flight.flightNumber})}">Book</a>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div th:unless="${flights}">
+    <p>No flights available.</p>
+</div>
+
+<div th:replace="navbar :: footer"></div>
 
 </body>
 </html>

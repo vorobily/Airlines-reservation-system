@@ -1,0 +1,77 @@
+@import url('https://fonts.googleapis.com/css?family=Raleway');
+
+body {
+    font-family: 'Raleway', sans-serif;
+}
+
+.scheduled-flights-heading {
+    text-align: left;
+    margin-right: 20px;
+}
+
+.image-container {
+    text-align: right;
+    margin: 10px;
+}
+
+.flight-box-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin: 20px auto;
+}
+
+
+.flight-box {
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    margin: 10px;
+    padding: 10px;
+    width: 350px;
+    height: fit-content;
+    display: flex;
+    flex-direction: column;
+}
+
+
+.box-header {
+    font-weight: bold;
+    text-align: center;
+}
+
+
+.box-body {
+    font-weight: bold;
+}
+
+
+.image-container {
+    text-align: center;
+    margin: 10px;
+}
+
+.form-actions {
+    display: flex;
+    justify-content: space-between;
+}
+
+.add-flight-button {
+    text-align: right;
+    margin-right: 20px;
+}
+
+.no-flights-available {
+    text-align: center;
+    width: 100%;
+}
+
+form {
+    display: flex;
+    justify-content: space-around;
+}
+
+
+.form-actions {
+    display: flex;
+    justify-content: space-between;
+}

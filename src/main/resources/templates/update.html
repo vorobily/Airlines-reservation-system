@@ -1,43 +1,105 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Update Flight Information</title>
+    <meta charset="UTF-8">
+    <title>Update Flight</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <link rel="stylesheet" th:href="@{/main.css}">
+    <link rel="stylesheet" th:href="@{/navbar.css}">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 </head>
+
 <body>
-<h1>Update Flight Information</h1>
-<form method="post" th:action="@{/update/{flightId}(flightId=${flight.flightNumber})}" th:object="${flight}">
-    <input id="flightNumber" required th:field="*{flightNumber}" type="hidden">
-    <div>
-        <label for="source">Departure Airport:</label>
-        <input id="source" required th:field="*{source}" type="text">
+
+<div th:replace="navbar :: navbar"></div>
+
+<div id="container-flight">
+    <div id="title">
+        Update Flight
     </div>
-    <div>
-        <label for="destination">Arrival Airport:</label>
-        <input id="destination" required th:field="*{destination}" type="text">
-    </div>
-    <div>
-        <label for="travelDate">Departure Date:</label>
-        <input id="travelDate" required th:field="*{travelDate}" type="date">
-    </div>
-    <div>
-        <label for="departureTime">Departure Time:</label>
-        <input type="time" id="departureTime" th:field="*{departureTime}" required>
-    </div>
-    <div>
-        <label for="arrivalTime">Arrival Time:</label>
-        <input type="time" id="arrivalTime" th:field="*{arrivalTime}" required>
-    </div>
-    <div>
-        <label for="price">Price:</label>
-        <input id="price" required th:field="*{price}" type="number">
-    </div>
-    <div>
-        <label for="availableSeats">Available Seats:</label>
-        <input id="availableSeats" required th:field="*{availableSeats}" type="number">
-    </div>
-    <div>
-        <button type="submit">Update</button>
-    </div>
-</form>
+
+    <form method="post" th:action="@{/update/{flightId}(flightId=${flight.flightNumber})}" th:object="${flight}">
+        <div class="input">
+            <div class="input-addon">
+                <i class="material-icons">airplanemode_active</i>
+            </div>
+            <input id="flightNumber" readonly required th:field="*{flightNumber}" type="text">
+        </div>
+
+        <div class="clearfix"></div>
+
+        <div class="input">
+            <div class="input-addon">
+                <i class="material-icons">flight_takeoff</i>
+            </div>
+            <input id="source" placeholder="Departure Airport" required th:field="*{source}" type="text">
+        </div>
+
+        <div class="clearfix"></div>
+
+        <div class="input">
+            <div class="input-addon">
+                <i class="material-icons">flight_land</i>
+            </div>
+            <input id="destination" placeholder="Arrival Airport" required th:field="*{destination}" type="text">
+        </div>
+
+        <div class="clearfix"></div>
+
+        <div class="input">
+            <label for="travelDate">Departure Date:</label>
+            <div class="input-addon">
+                <i class="material-icons">date_range</i>
+            </div>
+            <input id="travelDate" required th:field="*{travelDate}" type="date">
+        </div>
+
+        <div class="clearfix"></div>
+
+        <div class="input">
+            <label for="departureTime">Departure Time:</label>
+            <div class="input-addon">
+                <i class="material-icons">date_range</i>
+            </div>
+            <input id="departureTime" required th:field="*{departureTime}" type="time">
+        </div>
+
+        <div class="clearfix"></div>
+
+        <div class="input">
+            <label for="arrivalTime">Arrival Time:</label>
+            <div class="input-addon">
+                <i class="material-icons">date_range</i>
+            </div>
+            <input id="arrivalTime" required th:field="*{arrivalTime}" type="time">
+        </div>
+
+        <div class="clearfix"></div>
+
+        <div class="input">
+            <label for="price">Price:</label>
+            <div class="input-addon">
+                <i class="material-icons">attach_money</i>
+            </div>
+            <input id="price" required th:field="*{price}" type="number">
+        </div>
+
+        <div class="clearfix"></div>
+
+        <div class="input">
+            <label for="availableSeats">Available Seats:</label>
+            <div class="input-addon">
+                <i class="material-icons">airline_seat_recline_normal</i>
+            </div>
+            <input id="availableSeats" required th:field="*{availableSeats}" type="number">
+        </div>
+
+        <input type="submit" value="Update Flight"/>
+
+    </form>
+</div>
+
+<div th:replace="navbar :: footer"></div>
+
 </body>
 </html>
