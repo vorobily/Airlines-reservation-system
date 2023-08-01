@@ -1,7 +1,5 @@
 # Airlines Reservation System
 
-# Airline Management Application
-
 ## What the program does
 
 - `index.html`: Displays all available flights. Users can book flights, and admins can edit, delete, and add flights.
